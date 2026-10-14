@@ -40,7 +40,7 @@ BEGIN
 			cst_key,
 			cst_firstname,
 			cst_lastname,
-			cst_material_status,
+			cst_marital_status,
 			cst_gndr,
 			cst_create_date
 		)
@@ -49,11 +49,11 @@ BEGIN
 			cst_key,
 			TRIM (cst_firstname) AS cst_firstname,
 			TRIM (cst_lastname) AS cst_lastname,
-			CASE UPPER (TRIM(cst_material_status))
+			CASE UPPER (TRIM(cst_marital_status))
 				WHEN 'M' THEN 'Married'
 				WHEN 'S' THEN 'Single'
 				ELSE 'n/a'
-			END AS cst_material_status,
+			END AS cst_marital_status,
 			CASE UPPER(TRIM(cst_gndr))
 				WHEN 'F' THEN 'Female'
 				WHEN 'M' THEN 'Male'
@@ -112,7 +112,7 @@ BEGIN
 		INSERT INTO silver.crm_sales_details (
 			sls_ord_num,
 			sls_prd_key,
-			sls_cust_in,
+			sls_cust_id,
 			sls_order_dt,
 			sls_ship_dt,
 			sls_due_dt,
@@ -123,7 +123,7 @@ BEGIN
 		SELECT
 			sls_ord_num,
 			sls_prd_key,
-			sls_cust_in,
+			sls_cust_id,
 			CASE
 				WHEN sls_order_dt = 0 OR LEN(sls_order_dt) != 8 THEN NULL
 				ELSE CAST(CAST(sls_order_dt AS VARCHAR) AS DATE)
